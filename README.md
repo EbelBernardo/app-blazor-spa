@@ -1,66 +1,118 @@
-# Projeto SPA Blazor
+# Blazor SPA – Product & Category Management System
 
-## Descrição
+Single Page Application (SPA) developed in Blazor with .NET 8 and C#, implementing a complete CRUD system for products and categories using Entity Framework Core for data persistence.
 
-Este é um projeto Single Page Application (SPA) desenvolvido em **Blazor** com **.NET 8** e **C#**. O sistema implementa um CRUD completo para gerenciamento de categorias e produtos, utilizando Entity Framework Core para acesso a dados.
-
----
-
-## Funcionalidades
-
-- CRUD de Categorias
-- CRUD de Produtos
-- Validação de formulários com Data Annotations
-- Navegação SPA sem recarregar a página
-- Conexão com banco de dados via Entity Framework Core
-- Tratamento básico de erros
+The project focuses on stateful UI, data-driven components, and backend-integrated front-end logic, following modern SPA principles with Blazor.
 
 ---
 
-## Tecnologias Utilizadas
+## 🎯 Purpose
 
-- [.NET 8](https://dotnet.microsoft.com/en-us/)
-- [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
-- [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/)
+This project was developed for educational purposes to practice and consolidate concepts such as:
+
+- Building Single Page Applications with Blazor
+- Implementing CRUD workflows for related entities (Products & Categories)
+- Applying server-side validation with Data Annotations
+- Managing component state and navigation without page reloads
+- Using Entity Framework Core for database persistence
+- Structuring a real-world Blazor application
+
+---
+
+## 🛠 Technologies Used
+
 - C#
+- .NET 8
+- Blazor
+- Entity Framework Core
 - Bootstrap 5
 
 ---
 
-## Como Rodar o Projeto
+## 📁 Project Structure
 
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/EbelBernardo/Projeto-SPA-Blazor.git
+```
+/Pages
+  Razor components representing application pages
+/Data
+  DbContext and EF Core migrations
+/Models
+  Domain entities (Category, Product, etc.)
+/wwwroot
+  Static assets (CSS, JS)
+/Program.cs
+  Application bootstrap and configuration
 
-2. Navegue até a pasta do projeto
-   ```bash
-   cd Projeto-SPA-Blazor
+```
+ 
+---
 
-3. Restaure os pacotes NuGet
-   ```bash
-   dotnet restore
+## 🧩 Core Features
 
-4. Execute as migrações do Entity Framework Core para criar o banco de dados:
-   ```bash
-   dotnet ef database update
+- CRUD for Categories
+- CRUD for Products
+- Form validation using Data Annotations
+- SPA navigation without full page reload
+- Database connection via Entity Framework Core
+- Basic error handling
 
-5. Rode o projeto
-   ```bash
-   dotnet run
+---
 
-## Estrutura do Projeto
+## 🚀 Running the Project
+
+Clone the repository
    ```
-      /Pages           - Componentes Razor das páginas
-      /Data            - Contexto do banco e classes de migração
-      /Models          - Classes do domínio (Category, Product, etc)
-      /wwwroot         - Arquivos estáticos (CSS, JS)
-      /Program.cs      - Configuração e inicialização da aplicação
+      git clone https://github.com/EbelBernardo/Projeto-SPA-Blazor.git
    ```
 
-## Contribuições
-Contribuições são bem vindas! Sinta-se à vontade para abrir issues ou pull requests.
+Navigate to the project folder
+   ```
+      cd app-blazor-spa
+   ```
 
-## Autor
+Restore NuGet packages
+   ```
+      dotnet restore
+   ```
+
+Apply Entity Framework migrations
+   ```
+      dotnet ef database update
+   ```
+
+Run the application
+   ```
+      dotnet run
+   ```
+--- 
+
+## 🧠 Architecture
+
+The application is built as a Single Page Application using Blazor, where:
+- UI is composed of stateful Razor components
+- Navigation happens without full page reloads
+- Business data is persisted through Entity Framework Core
+- Validation is enforced at the model and UI level 
+This architecture enables a responsive user experience while keeping a strong backend-driven data model.
+
+---
+
+## 📌 Project Status
+
+✔️ Completed for study and learning purposes.
+
+---
+
+## 📄 License
+
+This project is free to use for educational purposes.
+
+---
+
+## 👤 Autor
 Bernardo Ebel <br>
 [GitHub](https://github.com/EbelBernardo) | [LinkedIn](https://www.linkedin.com/in/bernardo-ebel-743831303/)
+
+## 📌 Final Notes
+
+This project represents a practical study of SPA development with Blazor, focusing on component-based UI, data persistence, and real application structure rather than isolated UI demos.

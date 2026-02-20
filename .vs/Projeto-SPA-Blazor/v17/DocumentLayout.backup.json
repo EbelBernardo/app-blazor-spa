@@ -1,10 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Meus Documentos\\Desktop\\Projeto-SPA-Blazor\\",
+  "WorkspaceRootPath": "C:\\dev-projetos\\Projeto-SPA-Blazor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|d:\\meus documentos\\desktop\\projeto-spa-blazor\\projeto-spa-blazor\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|solutionrelative:projeto-spa-blazor\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|c:\\dev-projetos\\projeto-spa-blazor\\projeto-spa-blazor\\pages\\categories\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|solutionrelative:projeto-spa-blazor\\pages\\categories\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|c:\\dev-projetos\\projeto-spa-blazor\\projeto-spa-blazor\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|solutionrelative:projeto-spa-blazor\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|c:\\dev-projetos\\projeto-spa-blazor\\projeto-spa-blazor\\pages\\categories\\createcategory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|solutionrelative:projeto-spa-blazor\\pages\\categories\\createcategory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|c:\\dev-projetos\\projeto-spa-blazor\\projeto-spa-blazor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|solutionrelative:projeto-spa-blazor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|c:\\dev-projetos\\projeto-spa-blazor\\projeto-spa-blazor\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}|Projeto-SPA-Blazor\\Projeto-SPA-Blazor.csproj|solutionrelative:projeto-spa-blazor\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,15 +51,63 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": ".gitignore",
-              "DocumentMoniker": "D:\\Meus Documentos\\Desktop\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\.gitignore",
-              "RelativeDocumentMoniker": "Projeto-SPA-Blazor\\.gitignore",
-              "ToolTip": "D:\\Meus Documentos\\Desktop\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\.gitignore",
-              "RelativeToolTip": "Projeto-SPA-Blazor\\.gitignore",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001407|",
-              "WhenOpened": "2025-06-02T21:01:22.291Z",
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Pages\\Categories\\Index.razor",
+              "RelativeDocumentMoniker": "Projeto-SPA-Blazor\\Pages\\Categories\\Index.razor",
+              "ToolTip": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Pages\\Categories\\Index.razor",
+              "RelativeToolTip": "Projeto-SPA-Blazor\\Pages\\Categories\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-20T15:18:14.499Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Pages\\Index.razor",
+              "RelativeDocumentMoniker": "Projeto-SPA-Blazor\\Pages\\Index.razor",
+              "ToolTip": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Pages\\Index.razor",
+              "RelativeToolTip": "Projeto-SPA-Blazor\\Pages\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-20T15:17:16.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreateCategory.razor",
+              "DocumentMoniker": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Pages\\Categories\\CreateCategory.razor",
+              "RelativeDocumentMoniker": "Projeto-SPA-Blazor\\Pages\\Categories\\CreateCategory.razor",
+              "ToolTip": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Pages\\Categories\\CreateCategory.razor",
+              "RelativeToolTip": "Projeto-SPA-Blazor\\Pages\\Categories\\CreateCategory.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-20T15:16:37.284Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Program.cs",
+              "RelativeDocumentMoniker": "Projeto-SPA-Blazor\\Program.cs",
+              "ToolTip": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Program.cs",
+              "RelativeToolTip": "Projeto-SPA-Blazor\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-20T15:09:26.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "Projeto-SPA-Blazor\\Models\\Category.cs",
+              "ToolTip": "C:\\dev-projetos\\Projeto-SPA-Blazor\\Projeto-SPA-Blazor\\Models\\Category.cs",
+              "RelativeToolTip": "Projeto-SPA-Blazor\\Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-20T14:43:59.549Z"
             }
           ]
         }

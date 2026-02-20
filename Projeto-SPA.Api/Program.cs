@@ -1,22 +1,28 @@
+using Projeto_SPA.Api.Endpoints.V1;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+        c.RoutePrefix = "swagger";
+    });
 }
 
 app.UseHttpsRedirection();
 
-var api = app.MapGroup("/api/v1");
+app.MapProductEndpoints();
+app.MapCategoryEndpoints();
 
-api.MapGet("/", () => Results.Ok(new { message = "API v1 running" }));
+var api = app.MapGroup("/api/v1");
 
 app.Run();
 

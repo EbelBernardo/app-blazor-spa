@@ -1,6 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Projeto_SPA.Api.Data;
 using Projeto_SPA.Api.Endpoints.V1;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,7 +28,12 @@ app.UseHttpsRedirection();
 app.MapProductEndpoints();
 app.MapCategoryEndpoints();
 
-var api = app.MapGroup("/api/v1");
+app.MapGet("/debug/db", async (AppDbContext db) =>
+{
+    return await db.Database.CanConnectAsync()
+        ? Results.Ok("Database connection successful!")
+        : Results.Problem("Failed to connect to the database.");
+});
 
 app.Run();
 

@@ -28,13 +28,6 @@ app.UseHttpsRedirection();
 app.MapProductEndpoints();
 app.MapCategoryEndpoints();
 
-app.MapGet("/debug/db", async (AppDbContext db) =>
-{
-    return await db.Database.CanConnectAsync()
-        ? Results.Ok("Database connection successful!")
-        : Results.Problem("Failed to connect to the database.");
-});
-
 app.Run();
 
 

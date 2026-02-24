@@ -21,29 +21,47 @@ This project was developed for educational purposes to practice and consolidate 
 
 ## 🛠 Technologies Used
 
-- C#
-- .NET 8
-- Blazor
+### Backend
+- ASP.NET Core Minimal API
+- .NET
 - Entity Framework Core
+- SQL Server
+
+### Frontend
+- Blazor
 - Bootstrap 5
 
 ---
 
 ## 📁 Project Structure
 
+### Backend Structure
+```
+/Endpoints
+  - Contains API endpoints definitions grouped by version
+/Data
+  - Database context and persistence configuration usinf EF
+/Models
+  - Domain Entities and business models
+```
+
+### Frontend Structure
 ```
 /Pages
-  Razor components representing application pages
+  - Application pages and routing components
+/Shared
+  - Reusable UI components
 /Data
-  DbContext and EF Core migrations
+  - DbContext and EF Core migrations
 /Models
-  Domain entities (Category, Product, etc.)
+  - Domain entities (Category, Product)
 /wwwroot
-  Static assets (CSS, JS)
-/Program.cs
-  Application bootstrap and configuration
-
+  - Static assets (CSS, JS)
 ```
+
+> 🚧 Development Note  
+> This structure represents the current development stage of the project.  
+> As the application evolves, the Blazor frontend will no longer contain Data and Models layers, since data consumption will be handled exclusively through the API via service-based communication.
  
 ---
 
@@ -99,7 +117,9 @@ This architecture enables a responsive user experience while keeping a strong ba
 
 ## 📌 Project Status
 
-✔️ Completed for study and learning purposes.
+🚧 Actively maintained and continuously evolving.
+
+The project is being used as a learning and portfolio demonstration environment, with periodic improvements in architecture, performance and code quality.
 
 ---
 

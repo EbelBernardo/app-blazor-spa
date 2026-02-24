@@ -1,4 +1,7 @@
-﻿namespace Projeto_SPA.Api.Endpoints.V1
+﻿using Microsoft.EntityFrameworkCore;
+using Projeto_SPA.Api.Data;
+
+namespace Projeto_SPA.Api.Endpoints.V1
 {
     public static class CategoryEndpoints
     {
@@ -6,10 +9,20 @@
         {
             var map = app.MapGroup("/api/v1/categories");
 
-            map.MapGet("", () => Results.Ok(new[] { "Category 1", "Category 2" }))
-                .WithTags("Categories")
-                .WithSummary("Returns all test categories")
-                .WithDescription("This endpoints returns dummy categories only for Swagger test");
+            map.MapGet("", async (AppDbContext db) =>
+            {
+                var categories = await db.Categories.ToListAsync();
+                return Results.Ok(categories);
+            });
+
+            map.MapGet("/{id}", async (int id, AppDbContext db) =>
+            {
+                var category = await db.Categories.FindAsync(id);
+                if(category == null) 
+                    return Results.NotFound();
+
+                return Results.Ok(category);
+            });
         }
     }
 }

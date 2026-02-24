@@ -11,17 +11,17 @@ namespace Projeto_SPA.Api.Endpoints.V1
 
             map.MapGet("", async (AppDbContext db) =>
             {
-                var categories = await db.Categories.ToListAsync();
-                return Results.Ok(categories);
+                var result = await db.Categories.ToListAsync();
+                return Results.Ok(result);
             });
 
             map.MapGet("/{id}", async (int id, AppDbContext db) =>
             {
-                var category = await db.Categories.FindAsync(id);
-                if(category == null) 
+                var result = await db.Categories.FindAsync(id);
+                if(result == null) 
                     return Results.NotFound();
 
-                return Results.Ok(category);
+                return Results.Ok(result);
             });
         }
     }

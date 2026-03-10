@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projeto_SPA.Api.Contracts.V1.Categories;
 using Projeto_SPA.Api.Data;
+using Projeto_SPA.Api.Responses;
 
 namespace Projeto_SPA.Api.Endpoints.V1
 {
@@ -21,7 +22,11 @@ namespace Projeto_SPA.Api.Endpoints.V1
                 })
                 .ToListAsync();
 
-                return Results.Ok(result);
+                return Results.Ok(
+                    new ApiResponse<List<CategoryResponse>>(
+                        result,
+                        "Categories retrivered successfully"
+                    ));
             });
 
             map.MapGet("/{id:int}", async (int id, AppDbContext db) =>
@@ -37,9 +42,17 @@ namespace Projeto_SPA.Api.Endpoints.V1
                     .FirstOrDefaultAsync();
 
                 if (result == null)
-                    return Results.NotFound();
+                    return Results.NotFound(
+                        new ApiResponse<object>(
+                            new[] {"Category not found"},
+                            "Resource not found"
+                        ));
 
-                return Results.Ok(result);
+                return Results.Ok(
+                    new ApiResponse<CategoryResponse>(
+                        result,
+                        "Category retrivered successfully"
+                    ));
             });
         }
     }

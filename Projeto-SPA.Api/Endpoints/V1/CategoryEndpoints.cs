@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projeto_SPA.Api.Contracts.V1.Categories;
 using Projeto_SPA.Api.Data;
+using Projeto_SPA.Api.Models;
 using Projeto_SPA.Api.Responses;
 
 namespace Projeto_SPA.Api.Endpoints.V1
@@ -23,9 +24,9 @@ namespace Projeto_SPA.Api.Endpoints.V1
                 .ToListAsync();
 
                 return Results.Ok(
-                    new ApiResponse<List<CategoryResponse>>(
+                    new ApiResponse<IEnumerable<CategoryResponse>>(
                         result,
-                        "Categories retrivered successfully"
+                        "Categories retrieved successfully"
                     ));
             });
 
@@ -51,8 +52,74 @@ namespace Projeto_SPA.Api.Endpoints.V1
                 return Results.Ok(
                     new ApiResponse<CategoryResponse>(
                         result,
-                        "Category retrivered successfully"
+                        "Category retrieved successfully"
                     ));
+            });
+
+            map.MapPost("", async(CreateCategoryRequest request, AppDbContext db) =>
+            {
+                var category = new Category
+                {
+                    Title = request.Title
+                };
+
+                db.Categories.Add(category);
+                await db.SaveChangesAsync();
+
+                var response = new CategoryResponse
+                {
+                    Id = category.Id,
+                    Title = category.Title
+                };
+
+                return Results.Created($"/api/v1/categories/{category.Id}",
+                    new ApiResponse<CategoryResponse>(
+                        response,
+                        "Category created successfully"
+                    ));
+            });
+
+            map.MapPut("/{id:int}", async (int id, UpdateCategoryRequest request, AppDbContext db) =>
+            {
+                var category = await db.Categories.FindAsync(id);
+                if (category == null)
+                    return Results.NotFound(
+                        new ApiResponse<object>(
+                            new[] {"Category not found"},
+                            "Resource not found"
+                        ));
+
+                category.Title = request.Title;
+
+                await db.SaveChangesAsync();
+
+                var response = new CategoryResponse
+                {
+                    Id = category.Id,
+                    Title = category.Title
+                };
+
+                return Results.Ok(
+                    new ApiResponse<CategoryResponse>(
+                        response,
+                        "Category updated successfully"
+                    ));
+            });
+
+            map.MapDelete("/{id:int}", async (int id, AppDbContext db) =>
+            {
+                var category = await db.Categories.FindAsync(id);
+                if(category == null)
+                    return Results.NotFound(
+                        new ApiResponse<object>(
+                            new[] {"Category not found"},
+                            "Resource not found"
+                        ));
+
+                db.Categories.Remove(category);
+                await db.SaveChangesAsync();
+
+                return Results.NoContent();
             });
         }
     }

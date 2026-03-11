@@ -1,4 +1,4 @@
-﻿namespace Projeto_SPA_Blazor.Contracts.V1
+﻿namespace Projeto_SPA_Blazor.Contracts.V1.Category
 {
     public class CategoryResponse
     {

@@ -1,9 +1,7 @@
-﻿namespace Projeto_SPA_Blazor.Contracts.V1
+﻿namespace Projeto_SPA_Blazor.Contracts.V1.Product
 {
-    public class ProductResponse
+    public class UpdateProductRequest
     {
-        public int Id { get; set; }
-
         public string Title { get; set; } = null!;
 
         public decimal Price { get; set; }

@@ -1,11 +1,24 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Projeto_SPA_Blazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+var apiUrl = builder.Configuration["ApiSettings:BaseUrl"];
+
+builder.Services.AddHttpClient<CategoryService>(client =>
+{
+    client.BaseAddress = new Uri(apiUrl!);
+});
+
+builder.Services.AddHttpClient<ProductService>(client =>
+{
+    client.BaseAddress = new Uri(apiUrl!);
+});
 
 var app = builder.Build();
 

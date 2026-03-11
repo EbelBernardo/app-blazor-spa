@@ -1,12 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.EntityFrameworkCore;
-using Projeto_SPA_Blazor.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddRazorPages();

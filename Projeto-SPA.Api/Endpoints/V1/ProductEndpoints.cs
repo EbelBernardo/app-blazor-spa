@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Projeto_SPA.Api.ApiHelpers;
 using Projeto_SPA.Api.Contracts.V1.Categories;
 using Projeto_SPA.Api.Contracts.V1.Products;
 using Projeto_SPA.Api.Data;
@@ -64,6 +65,14 @@ namespace Projeto_SPA.Api.Endpoints.V1
 
             map.MapPost("", async (CreateProductRequest request, AppDbContext db) =>
             {
+                var errors = ValidationHelper.ValidateModel(request);
+                if (errors.Any())
+                    return Results.BadRequest(
+                        new ApiResponse<object>(
+                            errors,
+                            "Validation failed"
+                        ));
+
                 var categoryExists = await db.Categories
                     .AnyAsync(c => c.Id == request.CategoryId);
                 if(!categoryExists)
@@ -100,6 +109,14 @@ namespace Projeto_SPA.Api.Endpoints.V1
 
             map.MapPut("/{id:int}", async (int id, UpdateProductRequest request, AppDbContext db) =>
             {
+                var errors = ValidationHelper.ValidateModel(request);
+                if (errors.Any())
+                    return Results.BadRequest(
+                        new ApiResponse<object>(
+                            errors,
+                            "Validation failed"
+                        ));
+
                 var categoryExists = await db.Categories
                     .AnyAsync(c => c.Id == request.CategoryId);
                 if (!categoryExists)

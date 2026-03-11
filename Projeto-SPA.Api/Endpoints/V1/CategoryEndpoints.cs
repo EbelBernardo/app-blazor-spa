@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Projeto_SPA.Api.ApiHelpers;
 using Projeto_SPA.Api.Contracts.V1.Categories;
 using Projeto_SPA.Api.Data;
 using Projeto_SPA.Api.Models;
@@ -58,6 +59,14 @@ namespace Projeto_SPA.Api.Endpoints.V1
 
             map.MapPost("", async(CreateCategoryRequest request, AppDbContext db) =>
             {
+                var errors = ValidationHelper.ValidateModel(request);
+                if(errors.Any())
+                    return Results.BadRequest(
+                        new ApiResponse<object>(
+                            errors,
+                            "Validation failed"
+                    ));
+
                 var category = new Category
                 {
                     Title = request.Title
@@ -81,6 +90,14 @@ namespace Projeto_SPA.Api.Endpoints.V1
 
             map.MapPut("/{id:int}", async (int id, UpdateCategoryRequest request, AppDbContext db) =>
             {
+                var errors = ValidationHelper.ValidateModel(request);
+                if (errors.Any())
+                    return Results.BadRequest(
+                        new ApiResponse<object>(
+                            errors,
+                            "Validation failed"
+                        ));
+
                 var category = await db.Categories.FindAsync(id);
                 if (category == null)
                     return Results.NotFound(

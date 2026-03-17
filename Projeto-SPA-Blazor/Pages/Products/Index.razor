@@ -1,5 +1,8 @@
 ﻿@page "/products"
 @using System.Globalization
+@using Projeto_SPA_Blazor.Contracts.V1.Product
+@using Projeto_SPA_Blazor.Services
+@inject ProductService ProductService
 
 <PageTitle>Products</PageTitle>
 
@@ -24,7 +27,7 @@
 				<td>@product.Id</td>
 				<td>@product.Title</td>
 				<td>@product.Price.ToString("C", new CultureInfo("pt-BR"))</td>
-				<td>@product.Category.Title</td>
+				<td>@product.CategoryId</td>
 				<td>
 					<a class="btn btn-primary" href="/products/update/@product.Id"><b>Update</b></a>
 					<a class="btn btn-danger" href="/products/delete/@product.Id"><b>Delete</b></a>
@@ -36,10 +39,15 @@
 
 @code
 {
-	List<Product> products = new();
+	List<ProductResponse> products = new();
 
 	protected override async Task OnInitializedAsync()
 	{
-		products = await context.Products.Include(p=> p.Category).AsNoTracking().ToListAsync();
+		var response = await ProductService.GetAllAsync();
+
+		if (response is not null && response.Success)
+		{
+			products = response.Data!;
+		}
 	}
 }

@@ -1,5 +1,8 @@
 ﻿@page "/categories/delete/{id:int}"
+@using Projeto_SPA_Blazor.Contracts.V1.Category
+@using Projeto_SPA_Blazor.Services
 @inject NavigationManager navigationManager
+@inject CategoryService CategoryService
 
 <PageTitle>Delete Category</PageTitle>
 
@@ -7,15 +10,27 @@
 
 <EditForm Model="model" OnValidSubmit="HandleSubmitAsync">
 
-	<DataAnnotationsValidator />
-	<ValidationSummary />
-
 	<div class="mb-3">
 		<label for="Title" class="form-label"><b>Title</b></label>
 		<InputText readonly id="Title" class="form-control" type="text" @bind-Value=@model.Title/>
 	</div>
 
+	@if(errors.Any())
+	{
+		<div class="alert alert-danger">
+			<ul>
+				@foreach(var error in errors)
+				{
+					<li>
+						@error
+					</li>
+				}
+			</ul>
+		</div>
+	}
+
 	<button class="btn btn-danger" type="submit"><b>Delete</b></button>
+	<a class="btn btn-primary" href="/categories"><b>Cancel</b></a>
 </EditForm>
 
 @code
@@ -23,23 +38,34 @@
 	[Parameter]
 	public int id { get; set; }
 
-	Category? model = new();
+	CategoryResponse model = new();
+
+	List<string> errors = new();
 
 	protected override async Task OnInitializedAsync()
 	{
-		model = await context.Categories.FindAsync(id);
-		if(model is null)
+		var response = await CategoryService.GetAsync(id);
+
+		if(response is null || !response.Success || response.Data is null)
+		{
 			navigationManager.NavigateTo("/categories");
+			return;
+		}
+
+		model.Title = response.Data.Title;
 	}
 
 	async Task HandleSubmitAsync()
 	{
-		var categorytoDelete = await context.Categories.FindAsync(id);
-		if (categorytoDelete is null)
-			return;
+		errors.Clear();
 
-		context.Categories.Remove(categorytoDelete);
-		await context.SaveChangesAsync();
+		var request = await CategoryService.DeleteAsync(id);
+
+		if(!request)
+		{
+			errors.Add("Failed to delete category.");
+			return;
+		}
 
 		navigationManager.NavigateTo("/categories");
 	}

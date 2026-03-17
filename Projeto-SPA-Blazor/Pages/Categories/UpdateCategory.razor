@@ -1,4 +1,7 @@
 ﻿@page "/categories/update/{id:int}"
+@using Projeto_SPA_Blazor.Contracts.V1.Category
+@using Projeto_SPA_Blazor.Services
+@inject CategoryService CategoryService
 @inject NavigationManager navigationManager
 
 <PageTitle>Update Category</PageTitle>
@@ -7,15 +10,32 @@
 
 <EditForm Model="model" OnValidSubmit="HandleSubmitAsync">
 
-	<DataAnnotationsValidator />
-	<ValidationSummary />
-
 	<div class="mb-3"> 
 		<label for="Title" class="form-label"><b>Title</b></label>
 		<InputText id="Title" type="text" class="form-control" @bind-Value=@model.Title/>
 	</div>
 
+	@if(!string.IsNullOrEmpty(message))
+	{
+		<div class="alert alert-info">@message</div>	
+	}
+
+	@if(errors.Any())
+	{
+		<div class="alert alert-danger">
+			<ul>
+				@foreach(var error in errors)
+				{
+					<li>
+						@error
+					</li>
+				}
+			</ul>
+		</div>
+	}
+
 	<button class="btn btn-success" type="submit"><b>Update</b></button>
+	<a class="btn btn-primary" href="/categories"><b>Cancel</b></a>
 </EditForm>
 
 @code
@@ -23,24 +43,43 @@
 	[Parameter]
 	public int id { get; set; }
 
-	Category? model = new();
+	UpdateCategoryRequest model = new();
+
+	List<string> errors = new();
+	string? message;
 
 	protected override async Task OnInitializedAsync()
 	{
-		model = await context.Categories.FindAsync(id);
-		if(model is null)
+		var response = await CategoryService.GetAsync(id);
+
+		if(response is null || !response.Success || response.Data is null)
+		{
 			navigationManager.NavigateTo("/categories");
+			return;
+		}
+
+		model.Title = response.Data.Title;
 	}
 
 	async Task HandleSubmitAsync()
 	{
-		var updatedCategory = await context.Categories.FindAsync(id);
-		if (updatedCategory is null)
+		errors.Clear();
+		message = null;
+
+		var request = await CategoryService.UpdateAsync(id, model);
+
+		if(request is null)
+		{
+			errors.Add("Server error.");
 			return;
+		}
 
-		updatedCategory.Title = model!.Title;
-
-		await context.SaveChangesAsync();
+		if(!request.Success)
+		{
+			errors = request.Errors?.ToList() ?? new();
+			message = request.Message;
+			return;
+		}
 
 		navigationManager.NavigateTo("/categories");
 	}

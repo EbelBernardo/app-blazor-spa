@@ -1,4 +1,7 @@
 ﻿@page "/categories"
+@using Projeto_SPA_Blazor.Contracts.V1.Category
+@using Projeto_SPA_Blazor.Services
+@inject CategoryService CategoryService
 
 <PageTitle>Categories</PageTitle>
 
@@ -10,7 +13,7 @@
 	<thead>
 		<tr>
 			<th>Id</th>
-			<th>Name</th>
+			<th>Title</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -31,10 +34,15 @@
 
 @code 
 {
-	List<Category> categories = new();
+	List<CategoryResponse> categories = new();
 
 	protected override async Task OnInitializedAsync()
 	{
-		categories = await context.Categories.AsNoTracking().ToListAsync();
+		var response = await CategoryService.GetAllAsync();
+
+		if (response is not null && response.Success)
+		{
+			categories = response.Data!;
+		}
 	}
 }

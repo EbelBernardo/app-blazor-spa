@@ -1,14 +1,15 @@
 ﻿@page "/products/create"
-@inject NavigationManager _navigations
+@using Projeto_SPA_Blazor.Contracts.V1.Category
+@using Projeto_SPA_Blazor.Contracts.V1.Product
+@using Projeto_SPA_Blazor.Services
+@inject NavigationManager navigationManager
+@inject ProductService ProductService
 
 <PageTitle>Create Product</PageTitle>
 
 <h1>Create Product</h1>
 
 <EditForm Model="model" OnValidSubmit="HandleSubmitAsync">
-
-	<DataAnnotationsValidator />
-	<ValidationSummary />
 
 	<div class="mb-3">
 		<label for="Title" class="form-label"><b>Title</b></label>
@@ -20,39 +21,59 @@
 	</div>
 	<div class="mb-3">
 		<label for="CategoryId" class="form-label"><b>Category</b></label>
-		<InputSelect class="form-control" id="CategoryId" @bind-Value=@model.CategoryId>
-			@foreach(var category in categories)
-			{
-				<option value="@category.Id">@category.Title</option>
-			}
-		</InputSelect>
+		<InputNumber class="form-control" type="number" id="CategoryId" @bind-Value=@model.CategoryId />
 	</div>
 
+	@if(!string.IsNullOrEmpty(message))
+	{
+		<div class="alert alert-info">@message</div>
+	}
+
+	@if (errors.Any())
+	{
+		<div class="alert alert-danger">
+			<ul>
+				@foreach (var error in errors)
+				{
+					<li>
+						@error
+					</li>
+				}
+			</ul>
+		</div>
+	}
+
 	<button class="btn btn-success" type="submit"><b>Create</b></button>
+	<a class="btn btn-primary" href="/products"><b>Cancel</b></a>
 </EditForm>
 
 @code
 {
-	Product model = new();
-	List<Category> categories = new();
-	string? errorMessage = null;
+	CreateProductRequest model = new();
 
-	protected override async Task OnInitializedAsync()
-	{
-		categories = await context.Categories.AsNoTracking().ToListAsync();
-	}
+	List<string> errors = new();
+	string? message;
 
 	async Task HandleSubmitAsync()
 	{
-		try
+		errors.Clear();
+		message = null;
+
+		var request = await ProductService.CreateAsync(model);
+
+		if(request is null)
 		{
-			await context.Products.AddAsync(model);
-			await context.SaveChangesAsync();
-			_navigations.NavigateTo("/products");
-		}
-		catch (Exception ex)
+			errors.Add("Server error.");
+			return;
+		};
+
+		if (!request.Success)
 		{
-			errorMessage = ex.Message;
+			errors = request.Errors?.ToList() ?? new();
+			message = request.Message;
+			return;
 		}
+
+		navigationManager.NavigateTo("/products");
 	}
 }

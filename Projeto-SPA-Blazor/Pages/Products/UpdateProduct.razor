@@ -1,14 +1,14 @@
 ﻿@page "/products/update/{id:int}"
-@inject NavigationManager navigations
+@using Projeto_SPA_Blazor.Contracts.V1.Product
+@using Projeto_SPA_Blazor.Services
+@inject NavigationManager navigationManager
+@inject ProductService ProductService
 
 <PageTitle>Update Product</PageTitle>
 
 <h1>Update: @model.Title</h1>
 
 <EditForm Model="model" OnValidSubmit="HandleSubmitAsync">
-
-	<DataAnnotationsValidator />
-	<ValidationSummary />
 
 	<div class="mb-3">
 		<label for="Title" class="form-label"><b>Title</b></label>
@@ -19,16 +19,31 @@
 		<InputNumber id="Price" class="form-control" type="number" @bind-Value=@model.Price/>
 	</div>
 	<div class="mb-3">
-		<label for="CategoryId" class="form-label"><b>Title</b>Category</label>
-		<InputSelect id="CategoryId" class="form-control" @bind-Value=@model.CategoryId>
-			@foreach(var category in categories)
-			{
-				<option value="@category.Id">@category.Title</option>
-			}
-		</InputSelect>
+		<label for="CategoryId" class="form-label"><b>Category</b></label>
+		<InputNumber id="CategoryId" class="form-control" type="number" @bind-Value=@model.CategoryId />
 	</div>
 
+	@if(!string.IsNullOrEmpty(message))
+	{
+		<div class="alert alert-info">@message</div>
+	}
+
+	@if(errors.Any())
+	{
+		<div class="alert alert-danger">
+			<ul>
+				@foreach (var error in errors)
+				{
+					<li>
+						@error
+					</li>
+				}
+			</ul>
+		</div>
+	}
+
 	<button class="btn btn-success" type="submit"><b>Update</b></button>
+	<a class="btn btn-primary" href="/products"><b>Cancel</b></a>
 </EditForm>
 
 @code
@@ -36,32 +51,46 @@
 	[Parameter]
 	public int id { get; set; }
 
-	Product model = new();
-	List<Category> categories = new();
+	UpdateProductRequest model = new();
+
+	List<string> errors = new();
+	string? message;
 
 	protected override async Task OnInitializedAsync()
 	{
-		categories = await context.Categories.AsNoTracking().ToListAsync();
+		var response = await ProductService.GetAsync(id);
 
-		var productFromDb = await context.Products.FindAsync(id);
-		if(productFromDb != null)
-			model = productFromDb;
-		else
-			navigations.NavigateTo("/products");
+		if(response is null || !response.Success || response.Data is null)
+		{
+			navigationManager.NavigateTo("/products");
+			return;
+		}
+
+		model.Title = response.Data.Title;
+		model.Price = response.Data.Price;
+		model.CategoryId = response.Data.CategoryId;
 	}
 
 	async Task HandleSubmitAsync()
 	{
-		var productUpdated = await context.Products.FindAsync(id);
-		if (productUpdated is null)
+		errors.Clear();
+		message = null;
+
+		var request = await ProductService.UpdateAsync(id, model);
+
+		if(request is null)
+		{
+			errors.Add("Server error.");
 			return;
+		}
 
-		productUpdated.Title = model.Title;
-		productUpdated.Price = model.Price;
-		productUpdated.CategoryId = model.CategoryId;
+		if (!request.Success)
+		{
+			errors = request.Errors?.ToList() ?? new();
+			message = request.Message;
+			return;
+		}
 
-		await context.SaveChangesAsync();
-
-		navigations.NavigateTo("/products");
+		navigationManager.NavigateTo("/products");
 	}
 }

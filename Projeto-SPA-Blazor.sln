@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto-SPA-Blazor", "Projeto-SPA-Blazor\Projeto-SPA-Blazor.csproj", "{927DFAC9-4048-4826-A64B-CA0A5D89CBF2}"
 EndProject

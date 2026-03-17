@@ -1,31 +1,69 @@
 ﻿@page "/categories/create"
+@using Projeto_SPA_Blazor.Contracts.V1.Category
+@using Projeto_SPA_Blazor.Services
 @inject NavigationManager navigationManager
+@inject CategoryService CategoryService
 
 <PageTitle>Create Category</PageTitle>
 
 <h1>Create Category</h1>
 
-<EditForm Model="model" OnValidSubmit="HandleSubmitAysnc">
-
-	<DataAnnotationsValidator />
-	<ValidationSummary />
+<EditForm Model="model" OnValidSubmit="HandleSubmitAsync">
 
 	<div class="mb-3">
 		<label for="Title" class="form-label"><b>Title</b></label>
 		<InputText id="Title" type="text" class="form-control" @bind-Value=@model.Title/>
 	</div>
 
+	@if(!string.IsNullOrEmpty(message))
+	{
+		<div class="alert alert-info">@message</div>
+	}
+
+	@if(errors.Any())
+	{
+		<div class="alert alert-danger">
+			<ul>
+				@foreach(var error in errors)
+				{
+					<li>
+						@error
+					</li>
+				}
+			</ul>
+		</div>
+	}
+
 	<button class="btn btn-success" type="submit"><b>Create</b></button>
+	<a class="btn btn-primary" href="/categories"><b>Cancel</b></a>
 </EditForm>
 
 @code
 {
-	Category model = new();
+	CreateCategoryRequest model = new();
 
-	async Task HandleSubmitAysnc()
+	List<string> errors = new();
+	string? message;
+
+	async Task HandleSubmitAsync()
 	{
-		await context.Categories.AddAsync(model);
-		await context.SaveChangesAsync();
+		errors.Clear();
+		message = null;
+
+		var request = await CategoryService.CreateAsync(model);
+
+		if (request is null)
+		{
+			errors.Add("Server error.");
+			return;
+		}
+
+		if (!request.Success)
+		{
+			errors = request.Errors?.ToList() ?? new();
+			message = request.Message;
+			return;
+		}
 
 		navigationManager.NavigateTo("/categories");
 	}

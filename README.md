@@ -1,21 +1,19 @@
 # Blazor SPA – Product & Category Management System
 
-Single Page Application (SPA) developed in Blazor with .NET 8 and C#, implementing a complete CRUD system for products and categories using Entity Framework Core for data persistence.
-
-The project focuses on stateful UI, data-driven components, and backend-integrated front-end logic, following modern SPA principles with Blazor.
+Single Page Application (SPA) built with Blazor and .NET, evolving from a monolithic structure to a decoupled client-server architecture using a versioned REST API.
 
 ---
 
 ## 🎯 Purpose
 
-This project was developed for educational purposes to practice and consolidate concepts such as:
+This project was created as a hands-on environment to practice real-world backend and frontend architecture concepts, focusing on:
 
-- Building Single Page Applications with Blazor
-- Implementing CRUD workflows for related entities (Products & Categories)
-- Applying server-side validation with Data Annotations
-- Managing component state and navigation without page reloads
-- Using Entity Framework Core for database persistence
-- Structuring a real-world Blazor application
+- Transition from monolithic to API-first architecture
+- REST API design with versioning (/api/v1)
+- Decoupling UI from data access
+- DTO-based contract design (Request/Response models)
+- Service-based frontend communication
+- Clean separation of concerns
 
 ---
 
@@ -26,113 +24,131 @@ This project was developed for educational purposes to practice and consolidate 
 - .NET
 - Entity Framework Core
 - SQL Server
+- Swagger (OpenAPI)
 
 ### Frontend
 - Blazor
 - Bootstrap 5
+- HttpClient (API consumption)
+
+---
+
+## 🧠 Architecture
+
+The project now follows a **client-server architecture**:
+
+### Backend (API)
+- Versioned REST API (`/api/v1`)
+- Endpoints organized by feature
+- DTOs used as contract (no EF exposure)
+- Standardized responses via `ApiResponse<T>`
+- Validation handled manually for Minimal API
+
+### Frontend (Blazor)
+- Fully decoupled from database
+- Communicates exclusively via HTTP
+- Uses service layer (`CategoryService`, `ProductService`)
+- UI components consume API data via DTOs
+
+---
+
+## 🔄 Evolution
+
+This project originally started as a **monolithic Blazor application**, directly accessing the database via `DbContext`.
+
+It has been refactored to:
+
+- Remove all direct database dependencies from the UI
+- Introduce a versioned REST API
+- Implement full CRUD via HTTP endpoints
+- Establish a stable API contract using DTOs
+- Add response standardization (`ApiResponse`)
+- Introduce validation layer for incoming requests
+
+---
+
+## 🧩 Core Features
+
+- Full CRUD for Categories (API + UI)
+- Full CRUD for Products (API + UI)
+- API versioning (`/api/v1`)
+- Swagger documentation
+- DTO-based communication
+- Centralized response pattern
+- Validation for POST and PUT requests
+- SPA navigation (no page reload)
 
 ---
 
 ## 📁 Project Structure
 
-### Backend Structure
-```
-/Endpoints
-  - Contains API endpoints definitions grouped by version
-/Data
-  - Database context and persistence configuration usinf EF
-/Models
-  - Domain Entities and business models
-```
-
-### Frontend Structure
-```
-/Pages
-  - Application pages and routing components
-/Shared
-  - Reusable UI components
-/Data
-  - DbContext and EF Core migrations
-/Models
-  - Domain entities (Category, Product)
-/wwwroot
-  - Static assets (CSS, JS)
+### Backend
+```bash
+/ApiHelpers → Shared utilities
+/Contracts → Request and Response DTOs
+/Data → DbContext and EF Core configuration
+/Endpoints → Minimal API endpoints
+/Models → Domain entities
 ```
 
-> 🚧 Development Note  
-> This structure represents the current development stage of the project.  
-> As the application evolves, the Blazor frontend will no longer contain Data and Models layers, since data consumption will be handled exclusively through the API via service-based communication.
- 
+### Frontend
+```
+/Contracts → DTOs used to consume API
+/Pages → Routed UI components
+/Services → HTTP communication layer
+/Shared → Reusable UI components
+```
+
 ---
 
-## 🧩 Core Features
+## 🧠 Structural Notes
 
-- CRUD for Categories
-- CRUD for Products
-- Form validation using Data Annotations
-- SPA navigation without full page reload
-- Database connection via Entity Framework Core
-- Basic error handling
+- The **Contracts layer exists on both frontend and backend**, ensuring a clear and explicit HTTP contract.
+- The frontend does **not depend on EF Core or database concerns**, only on HTTP communication.
+- Backend **Models are internal**, preventing leakage of persistence structure to external clients.
+- Services in the frontend act as an **abstraction layer over HttpClient**, centralizing API communication.
 
 ---
 
 ## 🚀 Running the Project
 
-Clone the repository
-   ```
-      git clone https://github.com/EbelBernardo/Projeto-SPA-Blazor.git
-   ```
+```bash
+git clone https://github.com/EbelBernardo/Projeto-SPA-Blazor.git
+cd app-blazor-spa
 
-Navigate to the project folder
-   ```
-      cd app-blazor-spa
-   ```
+dotnet restore
+dotnet ef database update
+dotnet run
+```
 
-Restore NuGet packages
-   ```
-      dotnet restore
-   ```
-
-Apply Entity Framework migrations
-   ```
-      dotnet ef database update
-   ```
-
-Run the application
-   ```
-      dotnet run
-   ```
 --- 
-
-## 🧠 Architecture
-
-The application is built as a Single Page Application using Blazor, where:
-- UI is composed of stateful Razor components
-- Navigation happens without full page reloads
-- Business data is persisted through Entity Framework Core
-- Validation is enforced at the model and UI level 
-This architecture enables a responsive user experience while keeping a strong backend-driven data model.
-
----
 
 ## 📌 Project Status
 
-🚧 Actively maintained and continuously evolving.
+### 🚧 Actively evolving
 
-The project is being used as a learning and portfolio demonstration environment, with periodic improvements in architecture, performance and code quality.
+This project is continuously being improved, including:
+- New features
+- Architectural refinements
+- Code quality improvements
+- Better API design patterns
+
+Future updates may include:
+- Authentication & Authorization
+- Global error handling middleware
+- API versioning strategies (v2)
+- Automated validation pipelines
+- Deployment and cloud integration
+
+---
+
+## 👤 Author
+
+Bernardo Ebel
+GitHub | LinkedIn
 
 ---
 
 ## 📄 License
 
-This project is free to use for educational purposes.
-
----
-
-## 👤 Autor
-Bernardo Ebel <br>
-[GitHub](https://github.com/EbelBernardo) | [LinkedIn](https://www.linkedin.com/in/bernardo-ebel-743831303/)
-
-## 📌 Final Notes
-
-This project represents a practical study of SPA development with Blazor, focusing on component-based UI, data persistence, and real application structure rather than isolated UI demos.
+Free for educational use.
